@@ -1,4 +1,4 @@
-# azurerm_storage_account
+# terraform-azure-automation-module
 
 Terraform module that import PowerShell modules into an automation account, based on the [`azurerm_automation_module` terraform resource](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/automation_module).
 
