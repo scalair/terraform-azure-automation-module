@@ -22,3 +22,34 @@ module "terraform-azure-automation-module" {
   ]
 }
 ```
+
+## Limitations
+
+### A resource with the ID already exists
+
+Because Azure automatically imports a bunch of modules when the `Automation Account` is created, you can get this kind of error when you want to add a module where its name already exist in the `Automation Account`.
+There are several reason to add a module that already exists, for instance if you want to upgrade the module version.
+
+Here is the related error in my personal use-case when I tried to import a new version of `AzureRM.Profile` :
+
+`Error: A resource with the ID "/subscriptions/<subcription_id>/resourceGroups/<rg_name>/providers/Microsoft.Automation/
+automationAccounts/<account_name>/modules/AzureRM.Profile" already exists - to be managed via Terraform this resource needs to be imported into the State.`
+
+It fails because the module already exist, whereas the module is actually not in the terraform state.
+
+So, we need to import it. Let's do it :
+
+```bash
+terraform import "azurerm_automation_module.module[3]" /subscriptions/<subcription_id>/resourceGroups/<rg_name>/providers/Microsoft.Automation/
+automationAccounts/<account_name>/modules/AzureRM.Profile
+
+Import successful!
+```
+
+**In the previous example, the index `3` in** `azurerm_automation_module.module[3]` **depends on the index of the module within the declared ``modules`` variables.**
+
+Finally, you can apply again :
+
+```bash
+terraform apply
+```
