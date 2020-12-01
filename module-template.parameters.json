@@ -1,0 +1,11 @@
+{
+    "module_name": {
+        "value": "${module_name}"
+    },
+    "automation_account": {
+        "value": "${automation_account}"
+    },
+    "uri": {
+        "value": "${uri}"
+    }
+}
