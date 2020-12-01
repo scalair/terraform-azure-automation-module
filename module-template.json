@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "module_name": { "type": "string" },
+        "automation_account": { "type": "string" },
+        "uri": { "type": "string" }
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('automation_account'), '/', parameters('module_name'))]",
+            "type": "Microsoft.Automation/automationAccounts/modules",
+            "apiVersion": "2015-10-31",
+            "properties": {
+                "contentLink": {
+                    "uri": "[parameters('uri')]"
+                }
+            }
+        }
+    ]
+}
